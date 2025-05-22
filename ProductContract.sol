@@ -6,6 +6,15 @@ contract ProductContract {
 
     /// @notice Enumeration of supported user roles in the supply chain
     enum Role { Unknown, Supplier, Manufacturer, Retailer, Consumer }
+    enum ProductStatus {
+        Created,
+        MaterialsLogged,
+        ManufacturingVerified,
+        Manufactured,
+        InTransit,
+        Delivered,
+        Finalized
+    }
 
     /// @notice Struct representing a raw material component
     struct Material {
@@ -21,6 +30,7 @@ contract ProductContract {
         string manufacturerNote;    // Manufacturing or quality log
         address currentOwner;
         address[] ownershipHistory;
+        ProductStatus status;
     }
 
     mapping(uint => mapping(address => Role)) public productRoles;
@@ -74,9 +84,12 @@ contract ProductContract {
     /// @return productId Unique ID assigned to the product
     function registerProduct() public returns (uint) {
         uint id = nextProductId++;
+        
         products[id].productId = id;
         products[id].currentOwner = msg.sender;
         products[id].ownershipHistory.push(msg.sender);
+        products[id].status = ProductStatus.Created;
+
         isProductRegistered[id] = true;
         productRoles[id][msg.sender] = Role.Supplier;
         emit ProductRegistered(id, msg.sender);
@@ -95,6 +108,8 @@ contract ProductContract {
 
         Material memory mat = Material(name, origin, block.timestamp);
         products[productId].materials.push(mat);
+        products[productId].status = ProductStatus.MaterialsLogged;
+
         emit MaterialLogged(productId, name, origin);
     }
 
@@ -107,6 +122,7 @@ contract ProductContract {
         require(products[productId].currentOwner == msg.sender, "Only owner can verify quality");
 
         // Log the verification as a manufacturing note (for simplicity)
+        products[productId].status = ProductStatus.ManufacturingVerified;
         products[productId].manufacturerNote = qualityNote;
         emit ManufacturingLogged(productId, string(abi.encodePacked("Verified: ", qualityNote)));
     }
@@ -129,6 +145,8 @@ contract ProductContract {
         */
         require(products[productId].currentOwner == msg.sender, "Only owner can log manufacturing");
         products[productId].manufacturerNote = note;
+        products[productId].status = ProductStatus.Manufactured;
+        
         emit ManufacturingLogged(productId, note);
     }
 
@@ -156,6 +174,7 @@ contract ProductContract {
             revert(string.concat("Transfer not allowed between ", roleToString(senderRole), " and ", roleToString(recipientRole)));
         }
 
+        products[productId].status = ProductStatus.InTransit;
         products[productId].currentOwner = to;
         products[productId].ownershipHistory.push(to);
         emit OwnershipTransferred(productId, msg.sender, to);
@@ -168,6 +187,8 @@ contract ProductContract {
         require(isProductRegistered[productId], "Product not registered");
         require(products[productId].currentOwner == msg.sender, "Only current owner can confirm transfer");
 
+        products[productId].status = ProductStatus.Finalized;
+        
         // For now, just acknowledge confirmation — could extend later
         emit OwnershipTransferred(productId, msg.sender, msg.sender); // Optional: log confirmation
     }
@@ -208,4 +229,21 @@ contract ProductContract {
         if (role == Role.Consumer) return "Consumer";
         return "Invalid";
     }
+
+    function getProductStatusString(uint productId) public view returns (string memory) {
+        return statusToString(products[productId].status);
+    }
+
+    function statusToString(ProductStatus status) public pure returns (string memory) {
+        if (status == ProductStatus.Created) return "Created";
+        if (status == ProductStatus.MaterialsLogged) return "MaterialsLogged";
+        if (status == ProductStatus.ManufacturingVerified) return "ManufacturingVerified";
+        if (status == ProductStatus.Manufactured) return "Manufactured";
+        if (status == ProductStatus.InTransit) return "InTransit";
+        if (status == ProductStatus.Delivered) return "Delivered";
+        if (status == ProductStatus.Finalized) return "Finalized";
+        return "Unknown";
+    }
+
+
 }

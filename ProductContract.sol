@@ -95,10 +95,10 @@ contract ProductContract {
         require(isProductRegistered[productId], "Product not registered");
         require(products[productId].currentOwner == msg.sender, "Only owner can verify quality");
 
-    // Log the verification as a manufacturing note (for simplicity)
-    products[productId].manufacturerNote = qualityNote;
-    emit ManufacturingLogged(productId, string(abi.encodePacked("Verified: ", qualityNote)));
-}
+        // Log the verification as a manufacturing note (for simplicity)
+        products[productId].manufacturerNote = qualityNote;
+        emit ManufacturingLogged(productId, string(abi.encodePacked("Verified: ", qualityNote)));
+    }
 
 
     // === MANUFACTURING LOG ===
@@ -128,6 +128,7 @@ contract ProductContract {
 
         emit OwnershipTransferred(productId, msg.sender, to);
     }
+
     /// @notice Confirms transfer of ownership (e.g., by recipient)
     /// @dev Called by new owner to confirm receipt
     /// @param productId ID of the product being confirmed
@@ -135,9 +136,9 @@ contract ProductContract {
         require(isProductRegistered[productId], "Product not registered");
         require(products[productId].currentOwner == msg.sender, "Only current owner can confirm transfer");
 
-    // For now, just acknowledge confirmation — could extend later
-    emit OwnershipTransferred(productId, msg.sender, msg.sender); // Optional: log confirmation
-}
+        // For now, just acknowledge confirmation — could extend later
+        emit OwnershipTransferred(productId, msg.sender, msg.sender); // Optional: log confirmation
+    }
 
 
     // === PRODUCT HISTORY ===

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.12; // Changed from 0.8.20 to fix gas error
 
 contract ProductContract {
     address public owner;
@@ -53,7 +53,8 @@ contract ProductContract {
     /// @notice Emitted when product ownership changes
     event OwnershipTransferred(uint productId, address from, address to);
 
-    constructor() {
+    constructor(address stakeholderAddress) {
+        require(stakeholderAddress != address(0), "Invalid address inputted"); 
         owner = msg.sender;
         // Every address has Role Unknown at this stage
         // Address that registers a product will be assigned Role Supplier

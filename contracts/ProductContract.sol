@@ -224,13 +224,12 @@ contract ProductContract {
 
     // === HELPER FUNCTIONS
     /// @notice 
-    function roleToString(Role role) internal pure returns (string memory) {
-        if (role == Role.Unknown) return "Unknown";
+    function roleToString(Role role) public pure returns (string memory) {
         if (role == Role.Supplier) return "Supplier";
         if (role == Role.Manufacturer) return "Manufacturer";
         if (role == Role.Retailer) return "Retailer";
         if (role == Role.Consumer) return "Consumer";
-        return "Invalid";
+        return "Unknown";
     }
 
     function getProductStatusString(uint productId) public view returns (string memory) {
@@ -245,8 +244,7 @@ contract ProductContract {
         if (status == ProductStatus.Manufactured) return "Manufactured";
         if (status == ProductStatus.InTransit) return "InTransit";
         if (status == ProductStatus.Delivered) return "Delivered";
-        if (status == ProductStatus.Finalised) return "Finalised";
-        return "Unknown";
+        return "Finalised";
     }
 
 

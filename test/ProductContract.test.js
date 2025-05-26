@@ -202,4 +202,23 @@ describe("ProductContract", function () {
 
         expect(await contract.getProductHistory(1)).to.deep.equal(expectedOwners);
     });
+
+    it("should return correct role name", async function () {
+        expect(await contract.roleToString(0)).to.equal("Unknown");
+        expect(await contract.roleToString(1)).to.equal("Supplier");
+        expect(await contract.roleToString(2)).to.equal("Manufacturer");
+        expect(await contract.roleToString(3)).to.equal("Retailer");
+        expect(await contract.roleToString(4)).to.equal("Consumer");
+    });
+
+    it("should return correct product status", async function () {
+        expect(await contract.statusToString(0)).to.equal("Created");
+        expect(await contract.statusToString(1)).to.equal("MaterialsLogged");
+        expect(await contract.statusToString(2)).to.equal("ManufacturingVerified");
+        expect(await contract.statusToString(3)).to.equal("Manufactured");
+        expect(await contract.statusToString(4)).to.equal("InTransit");
+        expect(await contract.statusToString(5)).to.equal("Delivered");
+        expect(await contract.statusToString(6)).to.equal("Finalised");
+    });
+
 });

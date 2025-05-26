@@ -32,10 +32,10 @@ contract SalesContract {
     }
 
     /// @notice Ensures only the contract owner can perform certain actions
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only contract owner allowed");
-        _;
-    }
+    // modifier onlyOwner() {
+    //     require(msg.sender == owner, "Only contract owner allowed");
+    //     _;
+    // }
 
     /// @notice Ensures the caller is the product's current owner
     modifier onlyProductOwner(uint productId) {
@@ -61,7 +61,7 @@ contract SalesContract {
     /// @param buyer The address of the buyer
     function listProductForSale(uint productId, address buyer) public onlyProductOwner(productId) {
         require(buyer != address(0), "Invalid buyer address");
-
+        
         sales[productId] = Sale({
             productId: productId,
             seller: msg.sender,
@@ -70,14 +70,7 @@ contract SalesContract {
             confirmed: false
         });
 
-        salesHistory[productId].push(Sale({
-            productId: productId,
-            seller: msg.sender,
-            buyer: buyer,
-            timestamp: block.timestamp,
-            confirmed: false
-        }));
-
+        salesHistory[productId].push(sales[productId]);
 
         emit ProductListed(productId, msg.sender, buyer);
     }

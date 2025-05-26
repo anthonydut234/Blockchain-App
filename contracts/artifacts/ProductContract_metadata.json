@@ -1,0 +1,659 @@
+{
+	"compiler": {
+		"version": "0.8.12+commit.f00d7308"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "stakeholderAddress",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					}
+				],
+				"name": "ManufacturingLogged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "origin",
+						"type": "string"
+					}
+				],
+				"name": "MaterialLogged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "by",
+						"type": "address"
+					}
+				],
+				"name": "ProductRegistered",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "enum ProductContract.Role",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"name": "assignRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					}
+				],
+				"name": "confirmTransfer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					}
+				],
+				"name": "getCurrentOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					}
+				],
+				"name": "getMaterials",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "origin",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timestamp",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct ProductContract.Material[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					}
+				],
+				"name": "getProductHistory",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					}
+				],
+				"name": "getProductStatusString",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "getRoleString",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					}
+				],
+				"name": "initiateTransfer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "isProductRegistered",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					}
+				],
+				"name": "logManufacturing",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "origin",
+						"type": "string"
+					}
+				],
+				"name": "logMaterialInput",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "nextProductId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "productRoles",
+				"outputs": [
+					{
+						"internalType": "enum ProductContract.Role",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "products",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "manufacturerNote",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "currentOwner",
+						"type": "address"
+					},
+					{
+						"internalType": "enum ProductContract.ProductStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "registerProduct",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum ProductContract.Role",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"name": "roleToString",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum ProductContract.ProductStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"name": "statusToString",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "qualityNote",
+						"type": "string"
+					}
+				],
+				"name": "verifyMaterialQuality",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"assignRole(uint256,address,uint8)": {
+					"details": "Only contract owner can use this function",
+					"params": {
+						"role": "The role enum value",
+						"user": "Address to assign role to"
+					}
+				},
+				"confirmTransfer(uint256)": {
+					"details": "Called by new owner to confirm receipt",
+					"params": {
+						"productId": "ID of the product being confirmed"
+					}
+				},
+				"getCurrentOwner(uint256)": {
+					"params": {
+						"productId": "ID of the product"
+					},
+					"returns": {
+						"_0": "Address of the current owner"
+					}
+				},
+				"getMaterials(uint256)": {
+					"params": {
+						"productId": "ID of the product"
+					},
+					"returns": {
+						"_0": "Array of Material structs"
+					}
+				},
+				"getProductHistory(uint256)": {
+					"params": {
+						"productId": "ID of the product"
+					},
+					"returns": {
+						"_0": "Array of addresses who previously owned the product"
+					}
+				},
+				"getRoleString(uint256,address)": {
+					"details": "Converts internal enum to string for UI use",
+					"params": {
+						"user": "Address to retrieve role for"
+					},
+					"returns": {
+						"_0": "The role as a string (\"Supplier\", \"Manufacturer\", etc.)"
+					}
+				},
+				"initiateTransfer(uint256,address)": {
+					"details": "Sender must be current owner",
+					"params": {
+						"productId": "ID of the product",
+						"to": "Address of the next stakeholder"
+					}
+				},
+				"logManufacturing(uint256,string)": {
+					"details": "Used by the manufacturer to log actions taken on the product",
+					"params": {
+						"note": "Description of manufacturing or transformation",
+						"productId": "ID of the product"
+					}
+				},
+				"logMaterialInput(uint256,string,string)": {
+					"details": "Only the product's current owner (typically the supplier) can log",
+					"params": {
+						"name": "Name of the material",
+						"origin": "Geographic source of the material",
+						"productId": "ID of the product"
+					}
+				},
+				"registerProduct()": {
+					"details": "Everyone can register a raw material product, and considered as Supplier for that product",
+					"returns": {
+						"_0": "productId Unique ID assigned to the product"
+					}
+				},
+				"verifyMaterialQuality(uint256,string)": {
+					"details": "Manufacturer must be the current owner",
+					"params": {
+						"productId": "ID of the product",
+						"qualityNote": "Quality assurance or inspection note"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"events": {
+				"ManufacturingLogged(uint256,string)": {
+					"notice": "Emitted when a manufacturer logs production or quality"
+				},
+				"MaterialLogged(uint256,string,string)": {
+					"notice": "Emitted when a material is logged"
+				},
+				"OwnershipTransferred(uint256,address,address)": {
+					"notice": "Emitted when product ownership changes"
+				},
+				"ProductRegistered(uint256,address)": {
+					"notice": "Emitted when a product is registered"
+				}
+			},
+			"kind": "user",
+			"methods": {
+				"assignRole(uint256,address,uint8)": {
+					"notice": "Assigns a role to a specific address"
+				},
+				"confirmTransfer(uint256)": {
+					"notice": "Confirms transfer of ownership (e.g., by recipient)"
+				},
+				"getCurrentOwner(uint256)": {
+					"notice": "Returns the current owner of a product"
+				},
+				"getMaterials(uint256)": {
+					"notice": "Retrieves all materials logged for a product"
+				},
+				"getProductHistory(uint256)": {
+					"notice": "Returns the full ownership history of a product"
+				},
+				"getRoleString(uint256,address)": {
+					"notice": "Retrieves the role of a user in human-readable format"
+				},
+				"initiateTransfer(uint256,address)": {
+					"notice": "Initiates transfer of product ownership"
+				},
+				"logManufacturing(uint256,string)": {
+					"notice": "Logs manufacturing or processing details"
+				},
+				"logMaterialInput(uint256,string,string)": {
+					"notice": "Logs material input details for a product"
+				},
+				"registerProduct()": {
+					"notice": "Registers a new product on the blockchain"
+				},
+				"verifyMaterialQuality(uint256,string)": {
+					"notice": "Verifies the quality of received materials"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ProductContract.sol": "ProductContract"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"ProductContract.sol": {
+			"keccak256": "0xe139a3b2b1c3417e51277214b61c5e80843202f99d3a859c0ed76c90f5dd3335",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://781ba0ec3f88b63dda8bf7471dacce271971c3bd342070492c8454e9a45e0052",
+				"dweb:/ipfs/QmTwAmtyggMZq8WfhhRqnj25RP79v3hAtamNRxdtcA1iE7"
+			]
+		}
+	},
+	"version": 1
+}
